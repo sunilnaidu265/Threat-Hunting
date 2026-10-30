@@ -1,0 +1,40 @@
+{
+  "source": "C:/Users/sunil/Downloads/blog_to_threat_hunting_complete_blueprint.pdf",
+  "pipeline": [
+    "Input",
+    "Safe Extraction",
+    "Evidence Normalization",
+    "Optional Enrichment",
+    "Analysis Engine",
+    "Report Generation",
+    "Human Review",
+    "Git Publish"
+  ],
+  "evidence": {
+    "ips": [],
+    "domains": [
+      "example.com",
+      "github.com"
+    ],
+    "urls": [],
+    "hashes": [],
+    "files": [],
+    "processes": [],
+    "timestamps": []
+  },
+  "attack_techniques": [
+    "Credential Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Exfiltration"
+  ],
+  "enrichment": {
+    "status": "Skipped",
+    "details": "Set VT_API_KEY to enable reputation enrichment."
+  },
+  "human_review": [
+    "Validate the source and indicators with host telemetry.",
+    "Confirm whether indications are malicious or benign.",
+    "Apply proper privacy review before publication."
+  ]
+}

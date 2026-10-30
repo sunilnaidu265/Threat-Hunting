@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Falcon CrowdStrike Query - Keyword Fields</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      margin: 0;
+      padding: 32px;
+    }
+    .card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    h1 {
+      margin-top: 0;
+      color: #f8fafc;
+    }
+    .label {
+      color: #93c5fd;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #020817;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 18px;
+      color: #dcfce7;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 4px solid #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+      color: #fde68a;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Falcon CrowdStrike Query</h1>
+    <span class="label">Using FileName, CommandLine, and #event_simpleName="ProcessRollup2"</span>
+    <pre>#event_simpleName="ProcessRollup2" AND (
+  FileName IN ("node.exe", "npm.cmd", "npm.exe", "pnpm.cmd", "yarn.cmd")
+  OR CommandLine CONTAINS "npm install"
+  OR CommandLine CONTAINS "npm i "
+  OR CommandLine CONTAINS "npm ci"
+  OR CommandLine CONTAINS "pnpm install"
+  OR CommandLine CONTAINS "yarn install"
+  OR CommandLine CONTAINS "postinstall"
+  OR CommandLine CONTAINS "preinstall"
+  OR CommandLine CONTAINS "install.js"
+  OR CommandLine CONTAINS "powershell"
+  OR CommandLine CONTAINS "cmd.exe"
+  OR CommandLine CONTAINS "curl "
+  OR CommandLine CONTAINS "wget "
+  OR CommandLine CONTAINS "base64"
+  OR CommandLine CONTAINS "eval("
+  OR CommandLine CONTAINS "child_process"
+  OR CommandLine CONTAINS "execSync"
+  OR CommandLine CONTAINS "spawn("
+  OR CommandLine CONTAINS "registry.npmjs.org"
+  OR CommandLine CONTAINS ".npmrc"
+  OR CommandLine CONTAINS "package-lock.json"
+  OR CommandLine CONTAINS "node_modules"
+  OR CommandLine CONTAINS "npmrc"
+)</pre>
+
+    <div class="note">
+      This version follows your field list exactly: FileName, CommandLine, and #event_simpleName="ProcessRollup2".
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+title: Suspicious Rundll32 Remote Script Execution
+id: 3af2c2a4-4a63-4d8b-9ef8-9d8123f9f706
+status: experimental
+description: Detects rundll32.exe being invoked with remote script, URL, or suspicious DLL arguments commonly used for script-based execution and defense evasion.
+author: Copilot
+date: 2026-10-30
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+definition:
+  selection_image:
+    Image|endswith: '\rundll32.exe'
+  selection_suspicious:
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+      - 'javascript:'
+      - 'mshtml,'
+      - 'runhtml'
+      - 'advpack.dll'
+      - 'ieadvpack.dll'
+      - 'registers' 
+      - 'shell32.dll'
+      - 'scrobj.dll'
+      - 'url.dll'
+  condition: selection_image and selection_suspicious
+falsepositives:
+  - Legitimate signed administrative tooling using rundll32 with standard system DLLs
+  - Software deployment scripts that download or invoke remote content in controlled environments
+level: medium
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - CurrentDirectory
+  - User
+  - Hostname
+tags:
+  - attack.execution
+  - attack.defense_evasion
+  - attack.t1218

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Falcon CrowdStrike Query Valid</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      margin: 0;
+      padding: 32px;
+    }
+    .card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    h1 {
+      margin-top: 0;
+      color: #f8fafc;
+    }
+    .label {
+      color: #93c5fd;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #020817;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 18px;
+      color: #dcfce7;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 22px;
+      background: #0b1220;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid #334155;
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #111827;
+      color: #93c5fd;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    td {
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+    .note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 4px solid #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+      color: #fde68a;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Falcon CrowdStrike Query</h1>
+    <span class="label">Valid pipe-separated query structure</span>
+    <pre>#event_simpleName="ProcessRollup2"
+| FileName in~ ("node.exe", "npm", "npm.cmd", "npm.exe", "pnpm", "yarn")
+| CommandLine contains "npm install" OR CommandLine contains "npm i " OR CommandLine contains "npm ci" OR CommandLine contains "pnpm install" OR CommandLine contains "yarn install" OR CommandLine contains "postinstall" OR CommandLine contains "preinstall" OR CommandLine contains "install.js" OR CommandLine contains "powershell" OR CommandLine contains "cmd.exe" OR CommandLine contains "curl " OR CommandLine contains "wget " OR CommandLine contains "base64" OR CommandLine contains "eval(" OR CommandLine contains "child_process" OR CommandLine contains "execSync" OR CommandLine contains "spawn(" OR CommandLine contains "registry.npmjs.org" OR CommandLine contains ".npmrc" OR CommandLine contains "package-lock.json" OR CommandLine contains "node_modules" OR CommandLine contains "npmrc"
+| table([@timestamp, ComputerName, FileName, ImageFileName, CommandLine])</pre>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Advanced Search Pattern</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Event Type</td>
+          <td>#event_simpleName="ProcessRollup2"</td>
+          <td>Restricts to process creation telemetry in Falcon.</td>
+        </tr>
+        <tr>
+          <td>File Name Match</td>
+          <td>FileName in~ ("node.exe", "npm", "npm.cmd", "npm.exe", "pnpm", "yarn")</td>
+          <td>Targets the Node.js runtime and package manager binaries commonly used in malicious installs.</td>
+        </tr>
+        <tr>
+          <td>Command-line Abuse</td>
+          <td>CommandLine contains "npm install" OR "npm i " OR "npm ci" OR "pnpm install" OR "yarn install" OR "postinstall" OR "preinstall" OR "install.js"</td>
+          <td>Flags package installation and lifecycle hook abuse.</td>
+        </tr>
+        <tr>
+          <td>Execution / Download</td>
+          <td>CommandLine contains "powershell" OR "cmd.exe" OR "curl " OR "wget " OR "base64"</td>
+          <td>Captures script execution and payload retrieval activity.</td>
+        </tr>
+        <tr>
+          <td>Node Malware Signals</td>
+          <td>CommandLine contains "eval(" OR "child_process" OR "execSync" OR "spawn(" OR "registry.npmjs.org" OR ".npmrc" OR "package-lock.json" OR "node_modules" OR "npmrc"</td>
+          <td>Detects JavaScript execution patterns and registry/package abuse.</td>
+        </tr>
+        <tr>
+          <td>Output</td>
+          <td>table([@timestamp, ComputerName, FileName, ImageFileName, CommandLine])</td>
+          <td>Returns the key fields needed for analyst triage.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      This is the final Falcon Advanced Hunting query form matching the requested pipe syntax, uppercase OR logic, and table output columns.
+    </div>
+  </div>
+</body>
+</html>
